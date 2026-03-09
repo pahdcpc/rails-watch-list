@@ -1,0 +1,27 @@
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">My Collections</h2>
+
+  <div class="row">
+    <% @lists.each do |list| %>
+      <div class="col-12 col-md-6 mb-4">
+        <%= link_to list_path(list), class: "text-decoration-none text-dark" do %>
+          <div class="p-4 bg-white rounded-4 shadow-sm border d-flex align-items-center justify-content-between hover-card">
+            <h4 class="mb-0 fw-bold"><%= list.name %></h4>
+            <div class="d-flex align-items-center text-muted">
+              <span class="me-2"><%= list.movies.count %> movies</span>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="col-12 col-md-6 mb-4">
+       <%= link_to new_list_path, class: "text-decoration-none" do %>
+          <div class="p-4 rounded-4 border-dashed d-flex align-items-center justify-content-center text-muted" style="border: 2px dashed #ccc; height: 100%;">
+            <i class="fa-solid fa-plus me-2"></i> Create new list
+          </div>
+       <% end %>
+    </div>
+  </div>
+</div>

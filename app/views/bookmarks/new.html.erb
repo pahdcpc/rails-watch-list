@@ -1,0 +1,15 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+      <h1>Adicionar Filme à Lista: <%= @list.name %></h1>
+
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+        <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Escolhe um filme" %>
+        <%= f.input :comment, placeholder: "Escreve um pequeno comentário (mín. 6 caracteres)" %>
+        <%= f.submit "Adicionar Filme", class: "btn btn-primary" %>
+      <% end %>
+
+      <%= link_to "Voltar", list_path(@list), class: "text-secondary d-block mt-3" %>
+    </div>
+  </div>
+</div>

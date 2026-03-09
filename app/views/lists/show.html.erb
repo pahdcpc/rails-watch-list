@@ -1,0 +1,66 @@
+<div class="container py-5">
+
+  <div class="mb-4">
+    <%= link_to root_path, class: "text-decoration-none text-dark fw-bold small d-flex align-items-center gap-2" do %>
+      <i class="fa-solid fa-chevron-left"></i> Back to Dashboard
+    <% end %>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12 col-lg-8">
+      <div class="mb-5">
+        <h1 class="fw-bold mb-0 text-dark"><%= @list.name %></h1>
+        <p class="text-muted"><%= @list.movies.count %> Movies in your collection</p>
+      </div>
+
+      <div class="row">
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="col-12 col-md-6 mb-4">
+            <div class="card movie-card shadow-sm border-0 h-100 bg-white">
+
+              <div class="rating-badge">
+                <i class="fa-solid fa-star me-1"></i><%= bookmark.movie.rating %>
+              </div>
+
+              <img src="<%= bookmark.movie.poster_url %>" class="card-img-top" alt="<%= bookmark.movie.title %>"> <%# herb:disable erb-prefer-image-tag-helper %>
+
+              <div class="card-body d-flex flex-column justify-content-between p-4">
+                <div>
+                  <h5 class="fw-bold mb-2"><%= bookmark.movie.title %></h5>
+                  <p class="text-muted small mb-3"><%= bookmark.movie.overview.truncate(100) %></p>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                  <span class="small fst-italic text-secondary">"<%= bookmark.comment.truncate(40) %>"</span>
+                  <%= link_to bookmark_path(bookmark),
+                      data: { turbo_method: :delete, turbo_confirm: "Remove from list?" },
+                      class: "text-danger" do %>
+                    <i class="fa-solid fa-trash-can"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-lg-4">
+      <div class="p-4 rounded-4 bg-white shadow-sm border sticky-top" style="top: 20px;">
+        <h4 class="fw-bold mb-4 text-dark">Add to Collection</h4>
+
+        <%= simple_form_for [@list, @bookmark || Bookmark.new] do |f| %>
+          <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Choose a movie", label: false, input_html: { class: "rounded-3 mb-3" } %>
+          <%= f.input :comment, placeholder: "Your comment...", label: false, input_html: { class: "rounded-3 mb-3" } %>
+          <%= f.submit "Add Movie", class: "btn btn-movea w-100 py-3" %>
+        <% end %>
+
+        <p class="text-center text-muted small mt-4">
+          Select a movie from the database and add it to your <strong><%= @list.name %></strong> list.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap";
+@import "font-awesome";
+
+// Your CSS partials
+@import "components/index";
+@import "pages/index";
+
+body {
+  background-color: #c9c9c9;
+  font-family: 'Inter', sans-serif;
+}
+
+.movie-card {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: white;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+  }
+
+  .card-img-top {
+    height: 350px;
+    object-fit: cover;
+  }
+
+  .rating-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #FFAD49;
+  }
+}
+
+.btn-movea {
+  background-color: #111;
+  color: white;
+  border-radius: 14px;
+  padding: 12px 24px;
+  font-weight: 600;
+  border: none;
+  &:hover { background: #333; color: white; }
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1A1A1A;
+}
