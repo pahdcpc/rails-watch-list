@@ -67,3 +67,7 @@ gem "bootstrap", "~> 5.3"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
+
+gem "cloudinary", "~> 2.4"
+
+gem "dotenv-rails", "~> 3.2"

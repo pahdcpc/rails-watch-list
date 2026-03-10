@@ -4,21 +4,39 @@
   <div class="row">
     <% @lists.each do |list| %>
       <div class="col-12 col-md-6 mb-4">
-        <%= link_to list_path(list), class: "text-decoration-none text-dark" do %>
-          <div class="p-4 bg-white rounded-4 shadow-sm border d-flex align-items-center justify-content-between hover-card">
+        <div class="p-4 bg-white rounded-4 shadow-sm border d-flex align-items-center justify-content-between hover-card position-relative">
+
+          <!-- LINK PRINCIPAL (Cobre a imagem e o nome) -->
+          <%= link_to list_path(list), class: "text-decoration-none text-dark d-flex align-items-center flex-grow-1" do %>
+            <% if list.photo.attached? %>
+              <%= cl_image_tag list.photo.key, height: 60, width: 80, crop: :fill, class: "rounded me-3" %>
+            <% else %>
+              <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 60px;">
+                <i class="fa-regular fa-image text-muted"></i>
+              </div>
+            <% end %>
             <h4 class="mb-0 fw-bold"><%= list.name %></h4>
-            <div class="d-flex align-items-center text-muted">
-              <span class="me-2"><%= list.movies.count %> movies</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+          <% end %>
+
+          <!-- SECÇÃO À DIREITA (Contador + Lixo) -->
+          <div class="d-flex align-items-center text-muted">
+            <span class="me-3 small"><%= list.movies.count %> movies</span>
+
+            <%= link_to list_path(list),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{list.name}?" },
+                class: "text-danger p-2" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
           </div>
-        <% end %>
+
+        </div>
       </div>
     <% end %>
 
+    <!-- Botão Create New List (Mantém-se igual) -->
     <div class="col-12 col-md-6 mb-4">
        <%= link_to new_list_path, class: "text-decoration-none" do %>
-          <div class="p-4 rounded-4 border-dashed d-flex align-items-center justify-content-center text-muted" style="border: 2px dashed #ccc; height: 100%;">
+          <div class="p-4 rounded-4 border-dashed d-flex align-items-center justify-content-center text-muted" style="border: 2px dashed #ccc; min-height: 110px; height: 100%;">
             <i class="fa-solid fa-plus me-2"></i> Create new list
           </div>
        <% end %>

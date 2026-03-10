@@ -4,6 +4,7 @@
       <h1>Nova Lista</h1>
       <%= simple_form_for(@list) do |f| %>
         <%= f.input :name, placeholder: "Ex: Drama, Favoritos..." %>
+        <%= f.input :photo, as: :file %>
         <%= f.submit "Criar Lista", class: "btn btn-primary" %>
       <% end %>
       <%= link_to "Cancelar", lists_path, class: "text-danger d-block mt-2" %>
